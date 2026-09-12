@@ -101,3 +101,15 @@
 .safe-top {
   padding-top: calc(0.5rem + env(safe-area-inset-top));
 }
+
+/* 3D card flip utilities */
+.perspective-1200 {
+  perspective: 1200px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

@@ -8,6 +8,7 @@ import { DomainBadge } from '@/components/DomainBadge';
 import { SentenceDeconstructor } from './SentenceDeconstructor';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle2, XCircle, HelpCircle, ArrowRight, Languages, Sparkles, RefreshCw } from 'lucide-react';
+import { recordQuestionAnswer } from '@/lib/progressTracker';
 
 interface QuizScaffoldedProps {
   questions: PracticeQWithOptions[];
@@ -62,10 +63,11 @@ export function QuizScaffolded({ questions }: QuizScaffoldedProps) {
     setShowExplanation(true);
     setAnsweredCount((prev) => prev + 1);
 
-    const isCorrect = currentQ.options[idx]?.is_correct;
+    const isCorrect = !!currentQ.options[idx]?.is_correct;
     if (isCorrect) {
       setScore((prev) => prev + 1);
     }
+    recordQuestionAnswer(currentQ.domain as any, isCorrect);
   };
 
   const handleNext = () => {

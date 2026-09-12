@@ -125,6 +125,47 @@ function seedTables(db: Database) {
         [fc.id, fc.front_text, fc.back_text, fc.audio_path, fc.vocab_refs, fc.last_review, fc.ease, fc.interval, fc.next_due]
       );
     });
+  } else {
+    // Check if cached DB has outdated flashcards or vocab counts and auto-sync
+    try {
+      const fcStmt = db.prepare('SELECT COUNT(*) as count FROM flashcard');
+      let fcCount = 0;
+      if (fcStmt.step()) {
+        fcCount = (fcStmt.getAsObject() as any).count || 0;
+      }
+      fcStmt.free();
+
+      if (fcCount < CURRICULUM_DATA.flashcards.length) {
+        db.run('DELETE FROM flashcard');
+        CURRICULUM_DATA.flashcards.forEach((fc) => {
+          db.run(
+            `INSERT INTO flashcard (id, front_text, back_text, audio_path, vocab_refs, last_review, ease, interval, next_due)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [fc.id, fc.front_text, fc.back_text, fc.audio_path, fc.vocab_refs, fc.last_review, fc.ease, fc.interval, fc.next_due]
+          );
+        });
+      }
+
+      const vStmt = db.prepare('SELECT COUNT(*) as count FROM vocab');
+      let vCount = 0;
+      if (vStmt.step()) {
+        vCount = (vStmt.getAsObject() as any).count || 0;
+      }
+      vStmt.free();
+
+      if (vCount < CURRICULUM_DATA.vocab.length) {
+        db.run('DELETE FROM vocab');
+        CURRICULUM_DATA.vocab.forEach((v) => {
+          db.run(
+            `INSERT INTO vocab (id, dutch_term, root_decomposition, literal_english, legal_meaning, exam_frequency)
+             VALUES (?, ?, ?, ?, ?, ?)`,
+            [v.id, v.dutch_term, v.root_decomposition, v.literal_english, v.legal_meaning, v.exam_frequency]
+          );
+        });
+      }
+    } catch (e) {
+      console.warn('Auto-sync table update error:', e);
+    }
   }
 }
 
@@ -277,7 +318,7 @@ export async function fetchVocabSafe(): Promise<Vocab[]> {
   } catch (err) {
     console.warn('Vocab query fallback:', err);
   }
-  return CURRICULUM_DATA.vocab;
+  return CURRICULUM_DATA.vocab as Vocab[];
 }
 
 export async function fetchFlashcardsSafe(): Promise<Flashcard[]> {

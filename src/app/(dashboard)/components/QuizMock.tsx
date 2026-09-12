@@ -19,6 +19,7 @@ import {
   Languages,
   Sparkles
 } from 'lucide-react';
+import { recordMockExamResult } from '@/lib/progressTracker';
 
 export const CBR_EXAM_CONFIG = {
   totalQuestions: 40,
@@ -131,6 +132,14 @@ export function QuizMock({ questions: initialQuestions, examTitle = 'Officieel C
       setCurrentIndex((prev) => prev + 1);
     } else {
       setExamFinished(true);
+      const allAnswers = { ...userAnswers, [currentIndex]: selectedInCurrentQ };
+      let finalScore = 0;
+      questions.forEach((q, idx) => {
+        const uAns = allAnswers[idx];
+        if (uAns !== undefined && q.options[uAns]?.is_correct) finalScore += 1;
+      });
+      const passed = finalScore >= CBR_EXAM_CONFIG.passScore;
+      recordMockExamResult(passed, finalScore, questions.length);
     }
   };
 
