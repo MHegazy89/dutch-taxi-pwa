@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { PracticeQWithOptions, DomainType } from '@/types/db';
-import { getDb } from '@/lib/db/init';
+import { fetchQuestionsSafe } from '@/lib/db/init';
 import { QuizScaffolded } from '../components/QuizScaffolded';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { DOMAIN_LABELS } from '@/lib/utils';
-import { HelpCircle, Filter, RefreshCw } from 'lucide-react';
+import { HelpCircle, RefreshCw } from 'lucide-react';
 
 const ALL_DOMAINS: { id: DomainType | 'all'; label: string }[] = [
   { id: 'all', label: 'Alle Onderwerpen' },
@@ -29,28 +28,12 @@ export default function PracticePage() {
     async function loadQuestions() {
       setLoading(true);
       try {
-        const db = await getDb();
-        let querySql = 'SELECT * FROM practice_q';
-        let params: any[] = [];
-
-        if (selectedDomain !== 'all') {
-          querySql += ' WHERE domain = ?';
-          params.push(selectedDomain);
+        const allQuestions = await fetchQuestionsSafe();
+        if (selectedDomain === 'all') {
+          setQuestions(allQuestions);
+        } else {
+          setQuestions(allQuestions.filter((q) => q.domain === selectedDomain));
         }
-        querySql += ' ORDER BY id ASC';
-
-        const rawQuestions = db.query(querySql, params);
-
-        // Fetch options for each question
-        const fullQuestions: PracticeQWithOptions[] = rawQuestions.map((q: any) => {
-          const options = db.query('SELECT * FROM practice_option WHERE q_id = ? ORDER BY id ASC', [q.id]);
-          return {
-            ...q,
-            options,
-          };
-        });
-
-        setQuestions(fullQuestions);
       } catch (err) {
         console.error('Failed to load practice questions:', err);
       } finally {

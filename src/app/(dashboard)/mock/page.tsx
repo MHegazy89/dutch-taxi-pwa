@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { PracticeQWithOptions } from '@/types/db';
-import { getDb } from '@/lib/db/init';
+import { fetchQuestionsSafe } from '@/lib/db/init';
 import { QuizMock } from '../components/QuizMock';
 import { Card } from '@/components/ui/card';
 import { RefreshCw, Trophy } from 'lucide-react';
@@ -14,17 +14,7 @@ export default function MockExamPage() {
   const loadAllQuestions = async () => {
     setLoading(true);
     try {
-      const db = await getDb();
-      const rawQuestions = db.query('SELECT * FROM practice_q ORDER BY id ASC');
-
-      const fullQuestions: PracticeQWithOptions[] = rawQuestions.map((q: any) => {
-        const options = db.query('SELECT * FROM practice_option WHERE q_id = ? ORDER BY id ASC', [q.id]);
-        return {
-          ...q,
-          options,
-        };
-      });
-
+      const fullQuestions = await fetchQuestionsSafe();
       setQuestions(fullQuestions);
     } catch (err) {
       console.error('Failed to load mock exam questions:', err);
@@ -47,7 +37,7 @@ export default function MockExamPage() {
         </div>
         <h1 className="text-2xl font-bold text-white">40-Vragen CBR Proefexamen (TVT)</h1>
         <p className="text-xs sm:text-sm text-slate-400">
-          Volledig getimed examen (60 min) inclusief 2 casussen. Minimaal 32 van de 40 punten vereist om te slagen.
+          Volledig getimed examen (60 min) inclusief 2 casussen en A0-Nederlands vertaalhulp. Minimaal 32 van de 40 punten vereist om te slagen.
         </p>
       </div>
 

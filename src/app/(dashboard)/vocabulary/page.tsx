@@ -2,10 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { Vocab } from '@/types/db';
-import { getDb } from '@/lib/db/init';
+import { fetchVocabSafe } from '@/lib/db/init';
 import { CompoundSlicer } from '../components/CompoundSlicer';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { BookOpen, Search, RefreshCw, Sparkles } from 'lucide-react';
 
@@ -19,8 +18,7 @@ export default function VocabularyPage() {
     async function loadVocab() {
       setLoading(true);
       try {
-        const db = await getDb();
-        const items: Vocab[] = db.query('SELECT * FROM vocab ORDER BY dutch_term ASC');
+        const items = await fetchVocabSafe();
         setVocabList(items);
         if (items.length > 0) {
           setSelectedTerm(items[0]);
@@ -51,7 +49,7 @@ export default function VocabularyPage() {
         </div>
         <h1 className="text-2xl font-bold text-white">Woordenschat & Compound Slicer</h1>
         <p className="text-xs sm:text-sm text-slate-400">
-          Begrijp complexe samengestelde Nederlandse taxitermen door ze op te splitsen in betekenisvolle stammen.
+          Begrijp complexe samengestelde Nederlandse taxitermen door ze op te splitsen in betekenisvolle stammen met Engelse vertaling.
         </p>
       </div>
 
@@ -81,7 +79,7 @@ export default function VocabularyPage() {
                 <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                   <div>
                     <h2 className="text-xl font-black text-white">{selectedTerm.dutch_term}</h2>
-                    <span className="text-xs text-slate-400">{selectedTerm.literal_english}</span>
+                    <span className="text-xs text-orange-400 font-semibold">{selectedTerm.literal_english}</span>
                   </div>
                   <Badge
                     variant={
@@ -92,7 +90,7 @@ export default function VocabularyPage() {
                         : 'secondary'
                     }
                   >
-                    {selectedTerm.exam_frequency.toUpperCase()} EXAM FREQ
+                    {selectedTerm.exam_frequency?.toUpperCase()} EXAM FREQ
                   </Badge>
                 </div>
 

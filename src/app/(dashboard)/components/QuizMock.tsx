@@ -6,8 +6,20 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { DomainBadge } from '@/components/DomainBadge';
+import { SentenceDeconstructor } from './SentenceDeconstructor';
 import { DOMAIN_LABELS } from '@/lib/utils';
-import { Clock, AlertTriangle, CheckCircle2, XCircle, Trophy, RotateCcw, ArrowRight } from 'lucide-react';
+import {
+  Clock,
+  AlertTriangle,
+  CheckCircle2,
+  XCircle,
+  Trophy,
+  RotateCcw,
+  ArrowRight,
+  Languages,
+  Sparkles,
+  HelpCircle
+} from 'lucide-react';
 
 export const CBR_EXAM_CONFIG = {
   totalQuestions: 40,
@@ -31,12 +43,13 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
   const [secondsRemaining, setSecondsRemaining] = useState(CBR_EXAM_CONFIG.timeLimitMinutes * 60);
   const [examFinished, setExamFinished] = useState(false);
   const [examStarted, setExamStarted] = useState(false);
+  const [showA0Translation, setShowA0Translation] = useState(false);
+  const [showSentenceBreakdown, setShowSentenceBreakdown] = useState(false);
 
   // Initialize and structure 40 questions (30 regular + 2 case studies × 5Q)
   useEffect(() => {
-    if (initialQuestions.length === 0) return;
+    if (!initialQuestions || initialQuestions.length === 0) return;
 
-    // Separate case study questions from regular
     const casusQuestions = initialQuestions.filter((q) => q.domain === 'casus');
     const regularQuestions = initialQuestions.filter((q) => q.domain !== 'casus');
 
@@ -45,21 +58,18 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
     let casusIdx = 0;
 
     for (let i = 0; i < CBR_EXAM_CONFIG.totalQuestions; i++) {
-      // Injects Case 1 at Q16-20 (indices 15-19)
       if (i >= 15 && i < 20 && casusIdx < 5 && casusQuestions[casusIdx]) {
         structuredList.push(casusQuestions[casusIdx++]);
-      }
-      // Injects Case 2 at Q36-40 (indices 35-39)
-      else if (i >= 35 && i < 40 && casusIdx < casusQuestions.length && casusQuestions[casusIdx]) {
+      } else if (i >= 35 && i < 40 && casusIdx < casusQuestions.length && casusQuestions[casusIdx]) {
         structuredList.push(casusQuestions[casusIdx++]);
-      }
-      // Regular questions
-      else if (regIdx < regularQuestions.length) {
+      } else if (regIdx < regularQuestions.length) {
         structuredList.push(regularQuestions[regIdx++]);
       } else if (casusQuestions[casusIdx]) {
         structuredList.push(casusQuestions[casusIdx++]);
       } else if (regularQuestions.length > 0) {
         structuredList.push(regularQuestions[regIdx % regularQuestions.length]);
+      } else if (initialQuestions.length > 0) {
+        structuredList.push(initialQuestions[i % initialQuestions.length]);
       }
     }
 
@@ -96,6 +106,8 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
     setCurrentIndex(0);
     setUserAnswers({});
     setSelectedInCurrentQ(null);
+    setShowA0Translation(false);
+    setShowSentenceBreakdown(false);
     setSecondsRemaining(CBR_EXAM_CONFIG.timeLimitMinutes * 60);
   };
 
@@ -112,6 +124,8 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
     }));
 
     setSelectedInCurrentQ(null);
+    setShowA0Translation(false);
+    setShowSentenceBreakdown(false);
 
     if (currentIndex + 1 < questions.length) {
       setCurrentIndex((prev) => prev + 1);
@@ -130,7 +144,7 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
           </div>
           <h2 className="text-2xl font-bold text-white">Officieel CBR Proefexamen (TVT)</h2>
           <p className="text-sm text-slate-400">
-            Simulatie van het officiële CBR Taxi Vakbekwaamheid theorie-examen.
+            Simulatie van het CBR Taxi theorie-examen met optionele <strong>A0 English Language Scaffolding</strong>.
           </p>
         </div>
 
@@ -153,10 +167,10 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
           </div>
         </div>
 
-        <div className="p-3.5 rounded-lg bg-amber-950/30 border border-amber-800/40 text-xs text-amber-300 flex items-start gap-2.5">
-          <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+        <div className="p-3.5 rounded-lg bg-orange-950/30 border border-orange-800/40 text-xs text-orange-300 flex items-start gap-2.5">
+          <Languages className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
           <span>
-            Let op: Conform de CBR examenrichtlijn kun je na het bevestigen van een antwoord niet meer terug naar de vorige vraag.
+            <strong>A0 Learner Support:</strong> During the exam, you can tap &quot;🇬🇧 English Support&quot; on any question to view literal translations and grammar role breakdowns.
           </span>
         </div>
 
@@ -260,7 +274,7 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
 
         {/* Review of Wrong Questions */}
         <Card className="p-5 bg-slate-900 border-slate-800 space-y-4">
-          <h3 className="font-bold text-white text-base">Fout beantwoorde vragen & uitleg</h3>
+          <h3 className="font-bold text-white text-base">Fout beantwoorde vragen & Engelse toelichting</h3>
           <div className="space-y-4">
             {questions.map((q, qIdx) => {
               const userAns = userAnswers[qIdx];
@@ -276,7 +290,13 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
                     <span className="font-bold text-orange-400">Vraag {qIdx + 1}</span>
                     <DomainBadge domain={q.domain} size="sm" />
                   </div>
-                  <p className="text-slate-200 font-medium">{q.dutch_stem}</p>
+                  <p className="text-slate-200 font-medium text-sm">{q.dutch_stem}</p>
+
+                  {q.english_breakdown && (
+                    <div className="text-slate-400 italic text-xs bg-slate-900 p-2 rounded border border-slate-800">
+                      🇬🇧 {q.english_breakdown}
+                    </div>
+                  )}
 
                   <div className="space-y-1.5 pt-1">
                     {chosenOption && (
@@ -316,8 +336,16 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
   }
 
   // In-Exam Screen
-  const currentQ = questions[currentIndex];
+  const currentQ = questions[currentIndex] || initialQuestions[0];
   const isUrgentTime = secondsRemaining <= 600; // Under 10 mins
+
+  if (!currentQ) {
+    return (
+      <div className="p-8 text-center text-slate-400">
+        Examenvraag laden...
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5 max-w-xl mx-auto">
@@ -345,15 +373,49 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
       </div>
 
       {/* Question Stem Card */}
-      <Card className="p-5 sm:p-6 bg-slate-900 border-slate-800 space-y-3">
-        <h3 className="text-base sm:text-lg font-bold text-white leading-relaxed">
-          {currentQ.dutch_stem}
-        </h3>
+      <Card className="p-5 sm:p-6 bg-slate-900 border-slate-800 space-y-4">
+        {showSentenceBreakdown ? (
+          <SentenceDeconstructor question={currentQ} />
+        ) : (
+          <h3 className="text-base sm:text-lg font-bold text-white leading-relaxed">
+            {currentQ.dutch_stem}
+          </h3>
+        )}
+
+        {/* A0 English Support Toolbar */}
+        <div className="pt-2 border-t border-slate-800/80 flex flex-wrap gap-2">
+          {currentQ.english_breakdown && (
+            <button
+              type="button"
+              onClick={() => setShowA0Translation(!showA0Translation)}
+              className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-orange-500/15 text-orange-400 hover:bg-orange-500/25 border border-orange-500/30 flex items-center gap-1.5 transition-colors"
+            >
+              <Languages className="w-3.5 h-3.5" />
+              {showA0Translation ? 'Hide English' : '🇬🇧 English Translation (A0 Support)'}
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => setShowSentenceBreakdown(!showSentenceBreakdown)}
+            className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-400 hover:bg-blue-500/25 border border-blue-500/30 flex items-center gap-1.5 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            {showSentenceBreakdown ? 'Standard Text' : 'Grammar Roles (Actor/Duty)'}
+          </button>
+        </div>
+
+        {showA0Translation && currentQ.english_breakdown && (
+          <div className="p-3 bg-slate-950 rounded-lg border border-slate-800 text-xs text-slate-300 leading-relaxed animate-in fade-in">
+            <strong className="text-orange-400 block mb-0.5">English Meaning:</strong>
+            {currentQ.english_breakdown}
+          </div>
+        )}
       </Card>
 
       {/* Options List */}
       <div className="space-y-2.5">
-        {currentQ.options.map((opt, idx) => {
+        {currentQ.options?.map((opt, idx) => {
           const isSelected = selectedInCurrentQ === idx;
           return (
             <button

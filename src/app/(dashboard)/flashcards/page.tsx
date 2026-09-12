@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { Flashcard } from '@/types/db';
-import { getDb } from '@/lib/db/init';
+import { fetchFlashcardsSafe } from '@/lib/db/init';
 import { FlashcardCarousel } from '../components/FlashcardCarousel';
 import { Card } from '@/components/ui/card';
-import { Layers, Sparkles, RefreshCw } from 'lucide-react';
+import { Layers, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function FlashcardsPage() {
@@ -15,8 +15,7 @@ export default function FlashcardsPage() {
   const loadCards = async () => {
     setLoading(true);
     try {
-      const db = await getDb();
-      const allCards: Flashcard[] = db.query('SELECT * FROM flashcard ORDER BY id ASC');
+      const allCards = await fetchFlashcardsSafe();
       setCards(allCards);
     } catch (err) {
       console.error('Failed to load flashcards:', err);
@@ -39,7 +38,7 @@ export default function FlashcardsPage() {
         </div>
         <h1 className="text-2xl font-bold text-white">Flitskaarten & Kernbegrippen</h1>
         <p className="text-xs sm:text-sm text-slate-400">
-          Herhaal cruciale wetgeving, definities en CBR verkeersregels met gespreide herhaling.
+          Herhaal cruciale wetgeving, definities en CBR verkeersregels met gespreide herhaling en Engelse uitleg.
         </p>
       </div>
 

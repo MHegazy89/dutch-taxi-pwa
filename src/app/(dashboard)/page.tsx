@@ -2,48 +2,40 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProgressRing } from '@/components/ProgressRing';
-import { DomainBadge } from '@/components/DomainBadge';
-import { getDb } from '@/lib/db/init';
-import { Flashcard, DomainType } from '@/types/db';
+import { fetchFlashcardsSafe, fetchQuestionsSafe } from '@/lib/db/init';
+import { DomainType } from '@/types/db';
 import { isDue } from '@/lib/srs';
 import {
   Layers,
   HelpCircle,
   Trophy,
   BookOpen,
-  Sparkles,
-  Calendar,
   ArrowRight,
   ShieldCheck,
   Zap,
+  Languages
 } from 'lucide-react';
 
 export default function DashboardHome() {
   const [dueCardsCount, setDueCardsCount] = useState<number>(0);
   const [totalCards, setTotalCards] = useState<number>(0);
   const [totalQuestions, setTotalQuestions] = useState<number>(40);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadStats() {
       try {
-        const db = await getDb();
-        const cards: Flashcard[] = db.query('SELECT * FROM flashcard');
+        const cards = await fetchFlashcardsSafe();
         const due = cards.filter(isDue);
         setDueCardsCount(due.length);
         setTotalCards(cards.length);
 
-        const qCount = db.query('SELECT COUNT(*) as count FROM practice_q');
-        if (qCount && qCount[0]) {
-          setTotalQuestions(qCount[0].count);
-        }
+        const qList = await fetchQuestionsSafe();
+        setTotalQuestions(qList.length);
       } catch (err) {
-        console.warn('DB initialization pending:', err);
-      } finally {
-        setLoading(false);
+        console.warn('Stats loading:', err);
       }
     }
     loadStats();
@@ -64,9 +56,16 @@ export default function DashboardHome() {
       {/* Hero Banner: Spaced Repetition Call to Action */}
       <Card className="relative overflow-hidden p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-900 to-orange-950/40 border-orange-500/30">
         <div className="relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-semibold border border-orange-500/30">
-            <Zap className="w-3.5 h-3.5" />
-            <span>Vandaag klaar om te leren</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-semibold border border-orange-500/30">
+              <Zap className="w-3.5 h-3.5" />
+              <span>Vandaag klaar om te leren</span>
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-semibold border border-blue-500/30">
+              <Languages className="w-3.5 h-3.5" />
+              <span>A0 English Scaffolding Active</span>
+            </div>
           </div>
 
           <div className="space-y-1">
@@ -74,7 +73,7 @@ export default function DashboardHome() {
               CBR Taxi Theorie Trainer
             </h1>
             <p className="text-slate-300 text-sm max-w-lg leading-relaxed">
-              Versterk je juridisch Nederlands (A0 support) en slaag voor het Taxi Vakbekwaamheid theorie-examen (TVT).
+              Versterk je juridisch Nederlands met A0-vertalingen en slaag voor het Taxi Vakbekwaamheid theorie-examen (TVT).
             </p>
           </div>
 
