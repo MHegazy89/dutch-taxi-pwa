@@ -24,10 +24,10 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/', icon: Home },
   { label: 'Flitskaarten', href: '/flashcards', icon: Layers },
-  { label: 'Gesprek', href: '/communicate', icon: MessageSquare },
-  { label: 'Oefenen', href: '/practice', icon: HelpCircle },
   { label: 'Woorden', href: '/vocabulary', icon: BookOpen },
+  { label: 'Oefenen', href: '/practice', icon: HelpCircle },
   { label: 'Examen', href: '/mock', icon: Trophy },
+  { label: 'Gesprek', href: '/communicate', icon: MessageSquare },
 ];
 
 export default function DashboardLayout({
