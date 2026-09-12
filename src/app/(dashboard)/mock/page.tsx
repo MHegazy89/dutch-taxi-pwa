@@ -1,58 +1,93 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { PracticeQWithOptions } from '@/types/db';
-import { fetchQuestionsSafe } from '@/lib/db/init';
+import React, { useState } from 'react';
+import { getPracticeExams, getExamQuestions, PracticeExam } from '@/lib/curriculum';
 import { QuizMock } from '../components/QuizMock';
 import { Card } from '@/components/ui/card';
-import { RefreshCw, Trophy } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Trophy, CheckCircle2, Play, Sparkles, Languages, ArrowLeft } from 'lucide-react';
 
 export default function MockExamPage() {
-  const [questions, setQuestions] = useState<PracticeQWithOptions[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedExamId, setSelectedExamId] = useState<number | null>(null);
+  const exams = getPracticeExams();
 
-  const loadAllQuestions = async () => {
-    setLoading(true);
-    try {
-      const fullQuestions = await fetchQuestionsSafe();
-      setQuestions(fullQuestions);
-    } catch (err) {
-      console.error('Failed to load mock exam questions:', err);
-    } finally {
-      setLoading(false);
-    }
+  const handleSelectExam = (id: number) => {
+    setSelectedExamId(id);
   };
 
-  useEffect(() => {
-    loadAllQuestions();
-  }, []);
+  const handleBackToExams = () => {
+    setSelectedExamId(null);
+  };
+
+  if (selectedExamId !== null) {
+    const questions = getExamQuestions(selectedExamId);
+    return (
+      <div className="space-y-6">
+        <button
+          type="button"
+          onClick={handleBackToExams}
+          className="text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" /> Terug naar alle 20 oefenexamens
+        </button>
+
+        <QuizMock
+          questions={questions}
+          examTitle={`CBR Oefenexamen ${selectedExamId}`}
+          onRestart={() => setSelectedExamId(selectedExamId)}
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-in fade-in">
       {/* Header */}
       <div className="space-y-1">
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-orange-400">
           <Trophy className="w-4 h-4 text-yellow-400" />
-          <span>CBR Examen Simulator</span>
+          <span>CBR Examenbank (20 Examens)</span>
         </div>
-        <h1 className="text-2xl font-bold text-white">40-Vragen CBR Proefexamen (TVT)</h1>
+        <h1 className="text-2xl font-bold text-white">20 Volledige CBR Proefexamens (TVT)</h1>
         <p className="text-xs sm:text-sm text-slate-400">
-          Volledig getimed examen (60 min) inclusief 2 casussen en A0-Nederlands vertaalhulp. Minimaal 32 van de 40 punten vereist om te slagen.
+          Kies uit 20 getimede proefexamens (40 vragen per examen, 60 minuten, incl. casussen &amp; A0-Engelse vertaling).
         </p>
       </div>
 
-      {loading ? (
-        <div className="p-12 text-center text-slate-500 space-y-3">
-          <RefreshCw className="w-8 h-8 animate-spin mx-auto text-orange-500" />
-          <p className="text-sm">Proefexamen laden...</p>
-        </div>
-      ) : questions.length > 0 ? (
-        <QuizMock questions={questions} onRestart={loadAllQuestions} />
-      ) : (
-        <Card className="p-8 text-center text-slate-400 bg-slate-900 border-slate-800">
-          Geen examenvragen geladen.
-        </Card>
-      )}
+      {/* 20 Practice Exams Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        {exams.map((exam) => (
+          <Card
+            key={exam.id}
+            className="p-4 bg-slate-900/90 border-slate-800 hover:border-orange-500/60 transition-all flex flex-col justify-between space-y-3"
+          >
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-orange-400 bg-orange-500/15 px-2.5 py-0.5 rounded-full border border-orange-500/30">
+                  Examen #{exam.id}
+                </span>
+                <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                  <Languages className="w-3.5 h-3.5 text-blue-400" /> A0 English
+                </span>
+              </div>
+              <h2 className="text-base font-bold text-white">{exam.title}</h2>
+              <p className="text-xs text-slate-400 leading-relaxed">{exam.description}</p>
+            </div>
+
+            <div className="pt-2 flex items-center justify-between border-t border-slate-800/80 text-xs">
+              <span className="text-slate-400 font-medium">40 vragen · 60 min</span>
+              <Button
+                size="sm"
+                onClick={() => handleSelectExam(exam.id)}
+                className="bg-orange-500 hover:bg-orange-600 text-white font-bold h-8 px-4"
+              >
+                <Play className="w-3 h-3 mr-1.5 fill-current" />
+                Start Examen
+              </Button>
+            </div>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }

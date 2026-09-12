@@ -17,8 +17,7 @@ import {
   RotateCcw,
   ArrowRight,
   Languages,
-  Sparkles,
-  HelpCircle
+  Sparkles
 } from 'lucide-react';
 
 export const CBR_EXAM_CONFIG = {
@@ -32,10 +31,11 @@ export const CBR_EXAM_CONFIG = {
 
 interface QuizMockProps {
   questions: PracticeQWithOptions[];
+  examTitle?: string;
   onRestart?: () => void;
 }
 
-export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockProps) {
+export function QuizMock({ questions: initialQuestions, examTitle = 'Officieel CBR Proefexamen (TVT)', onRestart }: QuizMockProps) {
   const [questions, setQuestions] = useState<PracticeQWithOptions[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
@@ -142,7 +142,7 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
           <div className="w-16 h-16 rounded-2xl bg-orange-500/20 text-orange-400 mx-auto flex items-center justify-center border border-orange-500/30">
             <Trophy className="w-8 h-8" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Officieel CBR Proefexamen (TVT)</h2>
+          <h2 className="text-2xl font-bold text-white">{examTitle}</h2>
           <p className="text-sm text-slate-400">
             Simulatie van het CBR Taxi theorie-examen met optionele <strong>A0 English Language Scaffolding</strong>.
           </p>
@@ -170,7 +170,7 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
         <div className="p-3.5 rounded-lg bg-orange-950/30 border border-orange-800/40 text-xs text-orange-300 flex items-start gap-2.5">
           <Languages className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
           <span>
-            <strong>A0 Learner Support:</strong> During the exam, you can tap &quot;🇬🇧 English Support&quot; on any question to view literal translations and grammar role breakdowns.
+            <strong>A0 Learner Support:</strong> During the exam, you can tap &quot;🇬🇧 English Translation&quot; on any question to view literal translations and grammar role breakdowns.
           </span>
         </div>
 
@@ -178,7 +178,7 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
           onClick={handleStartExam}
           className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3.5 h-auto text-base shadow-lg shadow-orange-500/25"
         >
-          Start CBR Proefexamen
+          Start {examTitle}
         </Button>
       </Card>
     );
@@ -228,7 +228,7 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
 
           <div className="space-y-1">
             <span className="text-xs uppercase tracking-widest font-bold text-slate-400">
-              Examenuitslag
+              Examenuitslag · {examTitle}
             </span>
             <h2 className="text-3xl font-extrabold text-white">
               {isPassed ? 'GESLAAGD! 🎉' : 'GEZAKT (Niet behaald)'}
@@ -337,7 +337,7 @@ export function QuizMock({ questions: initialQuestions, onRestart }: QuizMockPro
 
   // In-Exam Screen
   const currentQ = questions[currentIndex] || initialQuestions[0];
-  const isUrgentTime = secondsRemaining <= 600; // Under 10 mins
+  const isUrgentTime = secondsRemaining <= 600;
 
   if (!currentQ) {
     return (
