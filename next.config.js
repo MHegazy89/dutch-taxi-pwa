@@ -11,6 +11,10 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 });
 
 const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
   reactStrictMode: true,
   webpack: (config, { isServer }) => {
     // Enable WebAssembly support for sql.js
@@ -31,32 +35,6 @@ const nextConfig = {
     }
 
     return config;
-  },
-  async headers() {
-    return [
-      {
-        source: '/data.db',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=86400, stale-while-revalidate=604800',
-          },
-        ],
-      },
-      {
-        source: '/sql-wasm.wasm',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/wasm',
-          },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
   },
 };
 

@@ -392,14 +392,491 @@ export const EXPANDED_QUESTIONS: PracticeQWithOptions[] = [
       { id: 80, q_id: 20, option_text: "Alleen open voor elektrisch vervoer.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Completely closed." }
     ]
   }
+,
+  {
+    id: 21,
+    dutch_stem: "Aan wie wordt het unieke personenvervoernummer (P-nummer) toegekend?",
+    english_breakdown: "To whom is the unique passenger transport number (P-number) assigned?",
+    correct_option: 1,
+    explanation: "Het P-nummer is het unieke registratienummer van de taxionderneming (de vervoerder), niet van de individuele chauffeur.",
+    role_annotations: JSON.stringify([{"text": "Personenvervoernummer (P-nummer)", "role": "Target"}, {"text": "toegekend aan de taxiondernemer / vervoerder", "role": "Actor"}]),
+    domain: "bcdt",
+    options: [
+      { id: 81, q_id: 21, option_text: "Aan de individuele taxichauffeur bij het behalen van het diploma.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Drivers hold a driver card number, not a P-number." },
+      { id: 82, q_id: 21, option_text: "Aan de taxiondernemer/het taxibedrijf door Kiwa Register.", is_correct: 1, trap_annotation: "🇬🇧 Correct: P-number identifies the licensed transport enterprise." },
+      { id: 83, q_id: 21, option_text: "Aan het voertuig door de RDW bij de eerste registratie.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Vehicles have license plate numbers." },
+      { id: 84, q_id: 21, option_text: "Aan de gemeente voor toewijzing van standplaatsen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Municipalities issue Rtx rank permits." }
+    ]
+  },
+  {
+    id: 22,
+    dutch_stem: "Hoe vaak moet een auto die als taxi gebruikt wordt een APK-keuring ondergaan?",
+    english_breakdown: "How frequently must a taxi vehicle undergo a mandatory APK (MOT) inspection?",
+    correct_option: 0,
+    explanation: "Omdat taxi's intensief gebruikt worden en veel kilometers maken, moeten zij vanaf de datum eerste toelating ieder jaar (jaarlijks) APK-gekeurd worden.",
+    role_annotations: JSON.stringify([{"text": "Taxi voertuig", "role": "Actor"}, {"text": "APK-keuring", "role": "Target"}, {"text": "ieder jaar vanaf dag 1", "role": "Obligation"}]),
+    domain: "bcdt",
+    options: [
+      { id: 85, q_id: 22, option_text: "Ieder jaar, te beginnen precies 1 jaar na datum eerste toelating.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Taxis require annual APK right from year one." },
+      { id: 86, q_id: 22, option_text: "Pas na 4 jaar, net zoals bij particuliere personenauto's.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Private cars have a 4-year exemption, commercial taxis do not." },
+      { id: 87, q_id: 22, option_text: "Om het half jaar (elke 6 maanden).", is_correct: 0, trap_annotation: "🇬🇧 Wrong: 6-month checks are not standard Dutch taxi law." },
+      { id: 88, q_id: 22, option_text: "Alleen als de taxi meer dan 100.000 km per jaar rijdt.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Mileage doesn't alter mandatory annual inspection interval." }
+    ]
+  },
+  {
+    id: 23,
+    dutch_stem: "Binnen hoeveel weken moeten de rit- en arbeidsgegevens van de chauffeurskaart uiterlijk overgezet (ontladen) worden naar de BCT?",
+    english_breakdown: "Within how many weeks must driver card data be downloaded/synchronized to the BCT?",
+    correct_option: 2,
+    explanation: "Volgens de wet moeten de gegevens van de chauffeurskaart uiterlijk elke 5 weken worden gekopieerd naar de BCT of de centrale administratie.",
+    role_annotations: JSON.stringify([{"text": "Chauffeurskaart gegevens", "role": "Target"}, {"text": "overzetten naar BCT / archief", "role": "Obligation"}, {"text": "uiterlijk elke 5 weken", "role": "Condition"}]),
+    domain: "bcdt",
+    options: [
+      { id: 89, q_id: 23, option_text: "Iedere werkdag na afloop van de dienst.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Daily backup is good practice but not the statutory limit." },
+      { id: 90, q_id: 23, option_text: "Uiterlijk elke 2 weken.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Fortnightly is for tachographs in trucks, not taxi BCT." },
+      { id: 91, q_id: 23, option_text: "Uiterlijk elke 5 weken.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Statutory 5-week download rule for driver cards." },
+      { id: 92, q_id: 23, option_text: "Eens per kalenderjaar.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Far too infrequent, memory will overwrite." }
+    ]
+  },
+  {
+    id: 24,
+    dutch_stem: "Wat moet een chauffeur doen als het verzegelingsloodje van de BCT verbroken of beschadigd is?",
+    english_breakdown: "What must a driver do if the BCT calibration security seal is broken or tampered with?",
+    correct_option: 1,
+    explanation: "Als het BCT-zegel ontbreekt of verbroken is, voldoet het voertuig niet meer aan de wettelijke toelatingseisen en mag er geen taxivervoer mee verricht worden.",
+    role_annotations: JSON.stringify([{"text": "Verzegeling BCT verbroken", "role": "Condition"}, {"text": "Chauffeur", "role": "Actor"}, {"text": "mag geen taxiritten uitvoeren en moet naar erkend installateur", "role": "Obligation"}]),
+    domain: "bcdt",
+    options: [
+      { id: 93, q_id: 24, option_text: "Gewoon doorrijden en het bij de volgende APK melden.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Operating with an unsealed BCT is a major transport violation." },
+      { id: 94, q_id: 24, option_text: "Niet rijden met betalende passagiers en de BCT direct laten herkeuren en verzegelen door een erkend inbouwer.", is_correct: 1, trap_annotation: "🇬🇧 Correct: An unsealed BCT invalidates taxi license compliance." },
+      { id: 95, q_id: 24, option_text: "Zelf een nieuw zegel plaatsen met toestemming van de centrale.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Only certified NMi installers may seal the device." },
+      { id: 96, q_id: 24, option_text: "Alleen nog ritten rijden op de bestelmarkt.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: BCT requirements apply to all taxi transport." }
+    ]
+  },
+  {
+    id: 25,
+    dutch_stem: "Is het aanwezig hebben van een Europees schadeformulier in Nederland wettelijk verplicht voor alle taxi's?",
+    english_breakdown: "Is carrying a European accident statement form legally mandatory in the Netherlands for all taxis?",
+    correct_option: 0,
+    explanation: "In Nederland is een schadeformulier wettelijk niet verplicht (in België wel). Wel is het verplicht voor taxibedrijven die het TX-Keur kwaliteitskeurmerk bezitten.",
+    role_annotations: JSON.stringify([{"text": "Europees schadeformulier", "role": "Target"}, {"text": "Niet wettelijk verplicht in NL, wel verplicht bij TX-Keur keurmerk", "role": "Condition"}]),
+    domain: "bcdt",
+    options: [
+      { id: 97, q_id: 25, option_text: "Nee, wettelijk niet verplicht in Nederland, maar wel verplicht voor taxi's met TX-Keur.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Voluntary standard TX-Keur requires it; statutory Dutch law does not." },
+      { id: 98, q_id: 25, option_text: "Ja, de Wet Personenvervoer 2000 eist dit in ieder voertuig.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: WP2000 does not mandate accident forms." },
+      { id: 99, q_id: 25, option_text: "Alleen als de taxi meer dan 4 passagiers vervoert.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Capacity has no bearing on insurance documents." },
+      { id: 100, q_id: 25, option_text: "Ja, en het formulier moet maandelijks door de ILT afgestempeld worden.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: ILT does not stamp accident forms." }
+    ]
+  },
+  {
+    id: 26,
+    dutch_stem: "Onder de collectieve regeling van het Atb-v: na hoeveel uur arbeid is een pauze van minimaal 15 minuten wettelijk verplicht?",
+    english_breakdown: "Under the Atb-v collective regime: after how many hours of work is a 15-minute break mandatory?",
+    correct_option: 2,
+    explanation: "Onder de collectieve regeling van het Atb-v dient een chauffeur na uiterlijk 5,5 uur arbeid een pauze van ten minste 15 minuten te genieten.",
+    role_annotations: JSON.stringify([{"text": "Collectieve regeling Atb-v", "role": "Condition"}, {"text": "pauze van min. 15 minuten", "role": "Target"}, {"text": "na maximaal 5,5 uur arbeid", "role": "Obligation"}]),
+    domain: "atbv",
+    options: [
+      { id: 101, q_id: 26, option_text: "Na maximaal 3,5 uur arbeid.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: 3.5h is not an Atb-v threshold." },
+      { id: 102, q_id: 26, option_text: "Na maximaal 4,5 uur rijtijd.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: 4.5h driving limit applies to European truck rules, not taxi collective." },
+      { id: 103, q_id: 26, option_text: "Na maximaal 5,5 uur arbeid.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Atb-v collective rule requires 15m break after max 5.5h work." },
+      { id: 104, q_id: 26, option_text: "Na maximaal 8 uur arbeid.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Way past maximum allowable continuous duty." }
+    ]
+  },
+  {
+    id: 27,
+    dutch_stem: "Mag een taxichauffeur een dienst beginnen of eindigen met een geregistreerde pauze in de BCT?",
+    english_breakdown: "May a taxi driver start or end a work shift with a registered break in the BCT?",
+    correct_option: 1,
+    explanation: "Nee. Een dienst mag NOOIT beginnen of eindigen met een pauze. Er moet altijd sprake zijn van een activiteit (zoals tanken, ritten of wassen) voor en na de pauze.",
+    role_annotations: JSON.stringify([{"text": "Dienst in BCT", "role": "Target"}, {"text": "beginnen of eindigen met pauze", "role": "Condition"}, {"text": "is nooit toegestaan", "role": "Obligation"}]),
+    domain: "atbv",
+    options: [
+      { id: 105, q_id: 27, option_text: "Ja, mits de pauze minimaal 30 minuten duurt.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Duration does not change this prohibition." },
+      { id: 106, q_id: 27, option_text: "Nee, een dienst mag nooit beginnen en nooit eindigen met een pauze.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Absolute rule: a shift must start and end with an activity, never a break." },
+      { id: 107, q_id: 27, option_text: "Alleen als de chauffeur toestemming heeft van de ILT.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: ILT does not grant individual shift exemptions." },
+      { id: 108, q_id: 27, option_text: "Alleen tijdens nachtdiensten tussen 02:00 en 06:00.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Night shifts follow the same structural rules." }
+    ]
+  },
+  {
+    id: 28,
+    dutch_stem: "Hoeveel uur dagelijkse rust moet een chauffeur minimaal genieten in een tijdvak van 24 uur (Atb-v collectieve regeling)?",
+    english_breakdown: "How many hours of daily rest are required in any 24h cycle under the Atb-v collective regime?",
+    correct_option: 0,
+    explanation: "De dagelijkse rust is minimaal 10 uur binnen elke 24-uursperiode. Dit mag maximaal 2 keer per 14 dagen teruggebracht worden tot minimaal 8 uur.",
+    role_annotations: JSON.stringify([{"text": "Dagelijkse rust per 24 uur", "role": "Target"}, {"text": "minimaal 10 uur (2x per 14 dagen mag 8 uur)", "role": "Obligation"}]),
+    domain: "atbv",
+    options: [
+      { id: 109, q_id: 28, option_text: "Minimaal 10 uur (mag 2x per 14 dagen verkort worden naar 8 uur).", is_correct: 1, trap_annotation: "🇬🇧 Correct: Standard 10h daily rest rule with 2x 8h reductions per 2-week window." },
+      { id: 110, q_id: 28, option_text: "Altijd minimaal 12 uur aaneengesloten.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: 12 hours is not the taxi collective standard." },
+      { id: 111, q_id: 28, option_text: "Minimaal 6 uur, zolang er overdag een dutje gedaan wordt.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: 6 hours is illegal; minimum shortened rest is 8h." },
+      { id: 112, q_id: 28, option_text: "Minimaal 11 uur conform standaard Arbeidstijdenwet.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Collective taxi regime deviates from ATW to 10h." }
+    ]
+  },
+  {
+    id: 29,
+    dutch_stem: "Wat is de minimale wekelijkse rusttijd in een periode van 14x24 uur (2 weken) volgens het Atb-v?",
+    english_breakdown: "What is the minimum rest requirement per 14x24 hours (2-week window) under Atb-v?",
+    correct_option: 1,
+    explanation: "Volgens de collectieve regeling van het Atb-v heeft de chauffeur per 14x24 uur recht op minimaal 72 uur rust, te genieten in blokken van minimaal 24 uur.",
+    role_annotations: JSON.stringify([{"text": "Wekelijkse rust per 14 dagen", "role": "Target"}, {"text": "minimaal 72 uur in blokken van minimaal 24 uur", "role": "Obligation"}]),
+    domain: "atbv",
+    options: [
+      { id: 113, q_id: 29, option_text: "45 uur per kalenderweek.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: That is the European truck regulation, not Dutch taxi Atb-v." },
+      { id: 114, q_id: 29, option_text: "Minimaal 72 uur per 14x24 uur, opgedeeld in blokken van minimaal 24 uur.", is_correct: 1, trap_annotation: "🇬🇧 Correct: 72 hours per 2-week cycle in minimum 24-hour blocks." },
+      { id: 115, q_id: 29, option_text: "Minimaal 96 uur per 14 dagen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: 96 hours exceeds the statutory requirement." },
+      { id: 116, q_id: 29, option_text: "Ieder weekend verplicht 48 uur.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Weekend work is common; rest can be taken on weekdays." }
+    ]
+  },
+  {
+    id: 30,
+    dutch_stem: "Een chauffeur rijdt taxi in loondienst en heeft daarnaast een tweede baan bij een pakketdienst. Welke verplichting geldt?",
+    english_breakdown: "A driver operates a taxi as an employee and holds a second parcel delivery job. What obligation applies?",
+    correct_option: 0,
+    explanation: "Volgens de samenloopregeling heeft de chauffeur een meldplicht: hij moet beide werkgevers inlichten over zijn werkzaamheden bij de ander.",
+    role_annotations: JSON.stringify([{"text": "Samenloopregeling (twee banen)", "role": "Condition"}, {"text": "Chauffeur", "role": "Actor"}, {"text": "meldplicht naar alle werkgevers", "role": "Obligation"}]),
+    domain: "atbv",
+    options: [
+      { id: 117, q_id: 30, option_text: "De chauffeur is verplicht al zijn werkgevers schriftelijk op de hoogte te stellen van al zijn werkzaamheden.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Statutory disclosure duty under the ATW samenloopregeling." },
+      { id: 118, q_id: 30, option_text: "Er geldt geen meldplicht, zolang er geen overuren worden gemaakt.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Notification is mandatory regardless of overtime." },
+      { id: 119, q_id: 30, option_text: "De pakketdienst telt niet mee voor de arbeidstijdenwet.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: All employment counts towards total statutory hours." },
+      { id: 120, q_id: 30, option_text: "De chauffeur mag maximaal 10 uur per week bijklussen zonder toestemming.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: No such hour exemption exists." }
+    ]
+  },
+  {
+    id: 31,
+    dutch_stem: "Wat is de wettelijke minimale profieldiepte van de hoofdgroeven van een taxiband voor de APK?",
+    english_breakdown: "What is the legal minimum tyre tread depth for taxi inspection (APK)?",
+    correct_option: 1,
+    explanation: "Wettelijk is 1,6 mm het absolute minimum over de gehele omtrek. Het professionele veiligheidsadvies voor taxi's is echter minimaal 2 mm (en 4 mm voor winterbanden).",
+    role_annotations: JSON.stringify([{"text": "Minimale bandenprofieldiepte", "role": "Target"}, {"text": "Wettelijk 1,6 mm", "role": "Obligation"}]),
+    domain: "transport",
+    options: [
+      { id: 121, q_id: 31, option_text: "1,0 mm.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: 1.0mm is illegal and dangerous." },
+      { id: 122, q_id: 31, option_text: "1,6 mm over de gehele omtrek van de hoofdgroeven.", is_correct: 1, trap_annotation: "🇬🇧 Correct: 1.6mm is the Dutch statutory APK limit." },
+      { id: 123, q_id: 31, option_text: "2,5 mm voor voorbanden en 1,5 mm voor achterbanden.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: The limit is uniform across all tyres." },
+      { id: 124, q_id: 31, option_text: "4,0 mm.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: 4.0mm is recommended winter tyre depth, not legal minimum." }
+    ]
+  },
+  {
+    id: 32,
+    dutch_stem: "Wanneer dient de bandenspanning van een taxi gemeten te worden voor een betrouwbaar resultaat?",
+    english_breakdown: "When should taxi tyre pressure be measured for an accurate reading?",
+    correct_option: 0,
+    explanation: "Bandenspanning moet altijd 'koud' worden gemeten, dat wil zeggen als het voertuig minimaal 1 uur heeft stilgestaan of niet meer dan een paar kilometer rustig heeft gereden.",
+    role_annotations: JSON.stringify([{"text": "Bandenspanning controleren", "role": "Target"}, {"text": "uitsluitend bij koude banden (min. 1 uur stilstand)", "role": "Condition"}]),
+    domain: "transport",
+    options: [
+      { id: 125, q_id: 32, option_text: "Als de banden koud zijn (na minimaal 1 uur stilstand).", is_correct: 1, trap_annotation: "🇬🇧 Correct: Warm tyres have inflated pressure readings due to thermal expansion." },
+      { id: 126, q_id: 32, option_text: "Direct na een lange rit op de snelweg.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Hot tyres read higher pressure than actual cold specification." },
+      { id: 127, q_id: 32, option_text: "Alleen als de taxi volledig volgeladen is met passagiers.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Loading conditions change target pressure, not measurement timing." },
+      { id: 128, q_id: 32, option_text: "Alleen tijdens de jaarlijkse APK-keuring.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Tyre pressure should be checked every 2 weeks." }
+    ]
+  },
+  {
+    id: 33,
+    dutch_stem: "Tijdens het rijden gaat er een rood controlelampje branden op uw dashboard. Wat moet u doen?",
+    english_breakdown: "While driving, a RED indicator illuminates on your instrument cluster. What must you do?",
+    correct_option: 2,
+    explanation: "Een rood controlelampje duidt op direct gevaar voor voertuig of inzittenden (bijv. oliedruk of remsysteem). U moet direct veilig stoppen en de motor uitzetten.",
+    role_annotations: JSON.stringify([{"text": "Rood dashboardlampje", "role": "Condition"}, {"text": "direct veilig tot stilstand brengen en motor uitschakelen", "role": "Obligation"}]),
+    domain: "transport",
+    options: [
+      { id: 129, q_id: 33, option_text: "Rustig doorrijden naar de garage aan het einde van de werkdag.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: A red light indicates imminent hazard or severe engine damage." },
+      { id: 130, q_id: 33, option_text: "Alarmlichten aanzetten en met 50 km/u naar de bestemming rijden.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Red lamp prohibits continued driving." },
+      { id: 131, q_id: 33, option_text: "Zo snel en veilig mogelijk de auto langs de kant parkeren en de motor uitzetten.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Red alert requires immediate safe cessation of driving." },
+      { id: 132, q_id: 33, option_text: "De BCT resetten om de foutmelding te wissen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: BCT cannot clear mechanical dashboard warnings." }
+    ]
+  },
+  {
+    id: 34,
+    dutch_stem: "Wanneer bent u wettelijk verplicht om de voorpassagiersairbag uit te schakelen?",
+    english_breakdown: "When are you legally required to disable the front passenger airbag?",
+    correct_option: 1,
+    explanation: "Wanneer een kinderzitje (bijvoorbeeld Maxi-Cosi) tegen de rijrichting in (achterwaarts) op de voorste passagiersstoel wordt geplaatst, MOET de airbag worden uitgeschakeld.",
+    role_annotations: JSON.stringify([{"text": "Passagiersairbag uitschakelen", "role": "Target"}, {"text": "bij achterwaarts babyzitje voorin", "role": "Obligation"}]),
+    domain: "gordelplicht",
+    options: [
+      { id: 133, q_id: 34, option_text: "Wanneer er een volwassene met een rolstoel voorin zit.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Airbags protect adult passengers." },
+      { id: 134, q_id: 34, option_text: "Als er een achterwaarts gericht kinderzitje (Maxi-Cosi) op de voorstoel wordt gemonteerd.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Airbag deployment against rear-facing seat can be fatal." },
+      { id: 135, q_id: 34, option_text: "Als de voorpassagier korter is dan 1,80 meter.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Height does not dictate airbag deactivation." },
+      { id: 136, q_id: 34, option_text: "Alleen als de taxi sneller rijdt dan 100 km/u.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Speed is irrelevant." }
+    ]
+  },
+  {
+    id: 35,
+    dutch_stem: "Wat is het doel van een Toegelaten Taxi Organisatie (TTO) in steden zoals Amsterdam?",
+    english_breakdown: "What is the purpose of an Authorized Taxi Organization (TTO) in cities like Amsterdam?",
+    correct_option: 0,
+    explanation: "In steden met een TTO-beleid mogen alleen chauffeurs die aangesloten zijn bij een erkende TTO gebruikmaken van de openbare taxistandplaatsen (opstapmarkt).",
+    role_annotations: JSON.stringify([{"text": "TTO (Toegelaten Taxi Organisatie)", "role": "Target"}, {"text": "toegang tot gemeentelijke taxistandplaatsen", "role": "Condition"}]),
+    domain: "transport",
+    options: [
+      { id: 137, q_id: 35, option_text: "Het waarborgen van kwaliteit en toezicht op standplaatsen (opstapmarkt) in de betreffende gemeente.", is_correct: 1, trap_annotation: "🇬🇧 Correct: TTO governs rank access, compliance, and disciplinary oversight." },
+      { id: 138, q_id: 35, option_text: "Het vaststellen van landelijke benzineprijzen voor taxi's.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: TTOs have no authority over fuel." },
+      { id: 139, q_id: 35, option_text: "Het afnemen van theorie-examens namens het CBR.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Only the CBR administers official exams." },
+      { id: 140, q_id: 35, option_text: "Het vervangen van de Inspectie Leefomgeving en Transport (ILT).", is_correct: 0, trap_annotation: "🇬🇧 Wrong: ILT remains the national state enforcement agency." }
+    ]
+  },
+  {
+    id: 36,
+    dutch_stem: "Wat is de wettelijke alcohollimiet voor een ervaren taxichauffeur tijdens de uitoefening van zijn beroep?",
+    english_breakdown: "What is the statutory blood alcohol limit for an experienced taxi driver on duty?",
+    correct_option: 1,
+    explanation: "Wettelijk geldt voor een ervaren bestuurder maximaal 0,5 promille (220 µg/l), mits niet beginnend bestuurder (eerste 5 jaar = 0,2 promille). Bedrijven eisen vaak 0,0.",
+    role_annotations: JSON.stringify([{"text": "Alcohollimiet ervaren taxichauffeur", "role": "Target"}, {"text": "maximaal 0,5 promille (220 \u00b5g/l)", "role": "Obligation"}]),
+    domain: "gedrag",
+    options: [
+      { id: 141, q_id: 36, option_text: "0,8 promille.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Far above any legal limit in the Netherlands." },
+      { id: 142, q_id: 36, option_text: "Maximaal 0,5 promille (220 microgram per liter uitgeademde lucht).", is_correct: 1, trap_annotation: "🇬🇧 Correct: Legal limit for experienced drivers (0.2 for novice)." },
+      { id: 143, q_id: 36, option_text: "1,2 promille mits er koffie is gedronken.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Severe criminal intoxication limit." },
+      { id: 144, q_id: 36, option_text: "Er geldt geen limiet zolang er geen passagiers in de auto zitten.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Traffic laws apply to all motorized driving." }
+    ]
+  },
+  {
+    id: 37,
+    dutch_stem: "U krijgt medicijnen voorgeschreven met een opvallende GELE waarschuwingssticker. Mag u taxi rijden?",
+    english_breakdown: "You are prescribed medication with a prominent YELLOW warning label. May you drive a taxi?",
+    correct_option: 2,
+    explanation: "Een gele sticker betekent dat het medicijn de reactiesnelheid en rijvaardigheid ernstig nadelig beïnvloedt. U mag tijdens het gebruik niet rijden.",
+    role_annotations: JSON.stringify([{"text": "Medicijn met gele waarschuwingssticker", "role": "Condition"}, {"text": "Rijden verboden", "role": "Obligation"}]),
+    domain: "gedrag",
+    options: [
+      { id: 145, q_id: 37, option_text: "Ja, als u de dosering halveert.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Drivers cannot self-adjust medical restrictions." },
+      { id: 146, q_id: 37, option_text: "Ja, mits u binnen de bebouwde kom blijft.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Driving under impairing drugs is prohibited anywhere." },
+      { id: 147, q_id: 37, option_text: "Nee, een gele sticker duidt op een negatieve invloed op de rijvaardigheid; u mag niet rijden.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Yellow warning sticker indicates impairment; driving is outlawed." },
+      { id: 148, q_id: 37, option_text: "Alleen met schriftelijke toestemming van de taxicentrale.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Dispatchers cannot override pharmaceutical traffic law." }
+    ]
+  },
+  {
+    id: 38,
+    dutch_stem: "Mag een taxichauffeur een mobiele telefoon in de hand houden terwijl hij stilstaat voor een rood verkeerslicht?",
+    english_breakdown: "May a taxi driver hold a mobile phone in hand while stationary at a red traffic signal?",
+    correct_option: 1,
+    explanation: "Nee. Stilstaan voor een rood verkeerslicht of in een file geldt nog steeds als actieve deelname aan het verkeer. Een telefoon vasthouden is dan strafbaar.",
+    role_annotations: JSON.stringify([{"text": "Stilstaan voor rood verkeerslicht", "role": "Condition"}, {"text": "Mobiele telefoon in de hand", "role": "Target"}, {"text": "Streng verboden", "role": "Obligation"}]),
+    domain: "gedrag",
+    options: [
+      { id: 149, q_id: 38, option_text: "Ja, want het voertuig staat op dat moment stil.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Waiting at red light is active driving, not parked." },
+      { id: 150, q_id: 38, option_text: "Nee, stilstaan voor een rood licht telt als actieve verkeersdeelname; vasthouden is verboden.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Strict Dutch road rule: no handheld phone while participating in traffic." },
+      { id: 151, q_id: 38, option_text: "Alleen als de chauffeur een handsfree oortje in heeft.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Holding the device is strictly forbidden even with headset." },
+      { id: 152, q_id: 38, option_text: "Alleen als het gesprek korter dan 30 seconden duurt.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Duration does not excuse handheld phone violations." }
+    ]
+  },
+  {
+    id: 39,
+    dutch_stem: "Wat is de juiste formule voor het berekenen van de totale stopafstand van een auto?",
+    english_breakdown: "What is the correct formula for calculating the total stopping distance of a vehicle?",
+    correct_option: 0,
+    explanation: "De stopafstand is de optelsom van de reactieweg (de afstand afgelegd tussen gevaar zien en rem intrappen) en de remweg (afstand tot stilstand).",
+    role_annotations: JSON.stringify([{"text": "Totale stopafstand", "role": "Target"}, {"text": "Reactieafstand + Remafstand", "role": "Condition"}]),
+    domain: "gedrag",
+    options: [
+      { id: 153, q_id: 39, option_text: "Stopafstand = Reactieafstand + Remafstand.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Total Stopping Distance = Reaction distance + Braking distance." },
+      { id: 154, q_id: 39, option_text: "Stopafstand = Remafstand gedeeld door reactiesnelheid.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Mathematical nonsense." },
+      { id: 155, q_id: 39, option_text: "Stopafstand = Reistijd vermenigvuldigd met gewicht.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Incorrect formula." },
+      { id: 156, q_id: 39, option_text: "Stopafstand = Alleen de remafstand.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Ignores human perception and reaction time." }
+    ]
+  },
+  {
+    id: 40,
+    dutch_stem: "Wat is volgens de PAMAN-methode de allereerste prioriteit bij aankomst bij een ernstig verkeersongeval?",
+    english_breakdown: "According to the PAMAN protocol, what is the very first priority when arriving at an accident scene?",
+    correct_option: 2,
+    explanation: "De letter P staat voor Persoonlijke veiligheid. U moet eerst uw eigen veiligheid waarborgen (hesje aandoen, uitkijken voor verkeer) voordat u anderen kunt helpen.",
+    role_annotations: JSON.stringify([{"text": "PAMAN protocol", "role": "Target"}, {"text": "Allereerste prioriteit", "role": "Condition"}, {"text": "P = Persoonlijke veiligheid waarborgen", "role": "Obligation"}]),
+    domain: "paman",
+    options: [
+      { id: 157, q_id: 40, option_text: "Direct slachtoffers uit verfrommelde auto's trekken.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Rushing into danger endangers yourself and causes more casualties." },
+      { id: 158, q_id: 40, option_text: "Foto's maken voor de verzekeringsmaatschappij.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Evidence collection is lowest priority during emergencies." },
+      { id: 159, q_id: 40, option_text: "Persoonlijke veiligheid waarborgen (veiligheidshesje aandoen en veilige positie kiezen).", is_correct: 1, trap_annotation: "🇬🇧 Correct: P in PAMAN = Persoonlijke veiligheid (Personal safety first)." },
+      { id: 160, q_id: 40, option_text: "De verkeerspolitie live streamen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Unauthorized and illegal." }
+    ]
+  },
+  {
+    id: 41,
+    dutch_stem: "Mag een chauffeur op de voorzijde van het Europees Schadeformulier vermelden wie schuldig is aan de aanrijding?",
+    english_breakdown: "May a driver state who is legally at fault on the front of the European Claim Form?",
+    correct_option: 1,
+    explanation: "Nee. Het schadeformulier dient uitsluitend om de feitelijke toedracht vast te leggen. Erkenning van schuld of aansprakelijkheid hoort er NOOIT op te staan; verzekeraars bepalen de schuldvraag.",
+    role_annotations: JSON.stringify([{"text": "Europees Schadeformulier", "role": "Target"}, {"text": "Schuldvraag", "role": "Condition"}, {"text": "Nooit schuld bekennen op het formulier", "role": "Obligation"}]),
+    domain: "paman",
+    options: [
+      { id: 161, q_id: 41, option_text: "Ja, dat versnelt de uitbetaling van de schade door de verzekeraar.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Admitting fault invalidates insurance coverage terms." },
+      { id: 162, q_id: 41, option_text: "Nee, erken nooit schuld op het schadeformulier; het formulier dient alleen voor de feitelijke situatie.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Golden rule: Document facts, sketches, and signatures only. Never admit liability." },
+      { id: 163, q_id: 41, option_text: "Alleen als de tegenpartij een taxichauffeur van hetzelfde bedrijf is.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Rule applies universally to all collisions." },
+      { id: 164, q_id: 41, option_text: "Ja, mits beide chauffeurs daarmee akkoord zijn.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Insurance adjusters determine fault, not drivers at the roadside." }
+    ]
+  },
+  {
+    id: 42,
+    dutch_stem: "U heeft motorpech op de snelweg en staat stil op de vluchtstrook. Wat is de veiligste handelwijze?",
+    english_breakdown: "You suffer engine breakdown on the motorway and stop on the hard shoulder. What is the safest course of action?",
+    correct_option: 0,
+    explanation: "Alarmlichten aan, wielen naar rechts draaien (richting berm), alle inzittenden veiligheidshesje aan, rechts uitstappen en achter de vangrail wachten.",
+    role_annotations: JSON.stringify([{"text": "Pech op de vluchtstrook", "role": "Condition"}, {"text": "Veiligheidshesjes aan", "role": "Obligation"}, {"text": "Wachten achter de vangrail", "role": "Obligation"}]),
+    domain: "paman",
+    options: [
+      { id: 165, q_id: 42, option_text: "Alarmlichten aan, wielen naar rechts, hesjes aandoen, rechts uitstappen en achter de vangrail wachten.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Official motorway breakdown procedure." },
+      { id: 166, q_id: 42, option_text: "In de taxi blijven zitten met de deuren op slot tot de pechhulp er is.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Remaining inside a stationary car on the shoulder is extremely hazardous." },
+      { id: 167, q_id: 42, option_text: "Achter de auto blijven staan om naderend verkeer te waarschuwen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Standing behind the car invites being crushed by distracted drivers." },
+      { id: 168, q_id: 42, option_text: "Met een zaklamp over de snelweg lopen om een praatpaal te zoeken.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Highly illegal and lethal." }
+    ]
+  },
+  {
+    id: 43,
+    dutch_stem: "Waar staat de letter S voor in het bekende communicatiemodel 'LSD' voor chauffeurs?",
+    english_breakdown: "What does the letter S stand for in the professional LSD communication model for drivers?",
+    correct_option: 2,
+    explanation: "LSD staat voor Luisteren, Samenvatten en Doorvragen. De letter S staat voor Samenvatten (van de boodschap van de klant).",
+    role_annotations: JSON.stringify([{"text": "LSD communicatiemodel", "role": "Target"}, {"text": "S = Samenvatten", "role": "Obligation"}]),
+    domain: "gedrag",
+    options: [
+      { id: 169, q_id: 43, option_text: "Stilzitten.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Not a communication skill." },
+      { id: 170, q_id: 43, option_text: "Snel antwoorden.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Rushing replies interrupts the speaker." },
+      { id: 171, q_id: 43, option_text: "Samenvatten.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Luisteren, Samenvatten (Summarize), Doorvragen." },
+      { id: 172, q_id: 43, option_text: "Schuld bekennen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Never admit unwarranted blame." }
+    ]
+  },
+  {
+    id: 44,
+    dutch_stem: "Mag een taxichauffeur op een openbare standplaats een klant weigeren omdat de rit slechts 1,5 km is?",
+    english_breakdown: "May a taxi driver on an official rank refuse a customer because the requested trip is only 1.5 km?",
+    correct_option: 1,
+    explanation: "Nee. Op de openbare standplaats geldt een wettelijke vervoersplicht. Korte ritten mogen onder geen enkele voorwaarde geweigerd worden.",
+    role_annotations: JSON.stringify([{"text": "Openbare taxistandplaats", "role": "Condition"}, {"text": "Korte rit weigeren", "role": "Target"}, {"text": "Is ten strengste verboden (vervoersplicht)", "role": "Obligation"}]),
+    domain: "gedrag",
+    options: [
+      { id: 173, q_id: 44, option_text: "Ja, want het starttarief dekt de wachttijd op de standplaats niet.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Profit margins do not waive statutory transport duty." },
+      { id: 174, q_id: 44, option_text: "Nee, er geldt een wettelijke vervoersplicht; een rit weigeren vanwege de afstand is streng verboden.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Rank drivers are legally obligated to carry passengers regardless of distance." },
+      { id: 175, q_id: 44, option_text: "Ja, mits hij de klant doorverwijst naar de achterste taxi.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Customers choose the front taxi; drivers cannot pawn off fares." },
+      { id: 176, q_id: 44, option_text: "Alleen als de klant met contant geld betaalt.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Cash and cards are both legal tender." }
+    ]
+  },
+  {
+    id: 45,
+    dutch_stem: "Een blinde klant stapt in met een blindengeleidehond. De chauffeur is bang voor honden. Wat moet de chauffeur doen?",
+    english_breakdown: "A visually impaired passenger boards with a guide dog. The driver is afraid of dogs. What must the driver do?",
+    correct_option: 0,
+    explanation: "Blindengeleidehonden en hulphonden mogen NOOIT geweigerd worden. De chauffeur moet de hond meenemen of in goed overleg met de klant direct een collegiale taxi regelen.",
+    role_annotations: JSON.stringify([{"text": "Blindengeleidehond", "role": "Target"}, {"text": "Chauffeur", "role": "Actor"}, {"text": "mag nooit weigeren; moet meenemen of direct passende oplossing regelen", "role": "Obligation"}]),
+    domain: "gedrag",
+    options: [
+      { id: 177, q_id: 45, option_text: "De hond meenemen; een assistentie- of blindengeleidehond mag nooit geweigerd worden.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Legal equality laws protect assistance dogs unconditionally." },
+      { id: 178, q_id: 45, option_text: "De klant weigeren en een toeslag van €10 vragen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Discriminatory and illegal." },
+      { id: 179, q_id: 45, option_text: "De hond in de kofferbak opsluiten.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Guide dogs travel in the passenger footwell." },
+      { id: 180, q_id: 45, option_text: "De politie bellen om de hond te verwijderen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Police will fine the driver, not the passenger." }
+    ]
+  },
+  {
+    id: 46,
+    dutch_stem: "Hoe moet u een passagier in een handbewogen rolstoel van een stoeprand of steile helling afrijden?",
+    english_breakdown: "How must you maneuver a passenger in a manual wheelchair off a sidewalk curb or steep ramp?",
+    correct_option: 2,
+    explanation: "ALTIJD achterwaarts (achteruit lopend). Als u vooruit van een stoeprand rijdt, kunnen de kleine zwenkwieltjes blokkeren en valt de passagier voorover op straat.",
+    role_annotations: JSON.stringify([{"text": "Rolstoel van stoeprand afrijden", "role": "Target"}, {"text": "ALTIJD achterwaarts (achteruit)", "role": "Obligation"}]),
+    domain: "gedrag",
+    options: [
+      { id: 181, q_id: 46, option_text: "Altijd vooruit, zodat de passagier ziet waar hij naartoe gaat.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Rolling forward causes castor wheels to wedge and tips the passenger forward." },
+      { id: 182, q_id: 46, option_text: "Zijwaarts op twee wielen balancerend.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Dangerous acrobatics." },
+      { id: 183, q_id: 46, option_text: "Altijd achterwaarts (achteruit), om te voorkomen dat de passagier voorover uit de rolstoel valt.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Universal wheelchair safety rule: reverse down curbs and ramps." },
+      { id: 184, q_id: 46, option_text: "De passagier eerst laten opstaan en lopen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Many wheelchair users cannot stand." }
+    ]
+  },
+  {
+    id: 47,
+    dutch_stem: "Aan welk deel van het voertuig moet de driepunts-veiligheidsgordel van een rolstoelpassagier verankerd zijn?",
+    english_breakdown: "To which part of the vehicle must the 3-point occupant seatbelt of a wheelchair passenger be anchored?",
+    correct_option: 0,
+    explanation: "De persoonsgordel moet altijd verankerd zijn aan de carrosserie of gekeurde vloerconstructie van het voertuig (ISO 10542), NOOIT alleen aan de rolstoel zelf.",
+    role_annotations: JSON.stringify([{"text": "Driepunts-veiligheidsgordel rolstoel", "role": "Target"}, {"text": "Verankerd aan de carrosserie van het voertuig", "role": "Obligation"}]),
+    domain: "gordelplicht",
+    options: [
+      { id: 185, q_id: 47, option_text: "Aan de carrosserie / gekeurde ankerpunten van het voertuig.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Crash energy must be transferred to the chassis, not the chair frame." },
+      { id: 186, q_id: 47, option_text: "Uitsluitend aan de armleuning van de rolstoel.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Chair armrests snap off instantly during a collision." },
+      { id: 187, q_id: 47, option_text: "Aan de hoofdsteun van de voorstoel.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Dangerous and uncertified." },
+      { id: 188, q_id: 47, option_text: "Aan de handgreep boven het portier.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Handle cannot bear impact forces." }
+    ]
+  },
+  {
+    id: 48,
+    dutch_stem: "Wat wordt in het zorgvervoer verstaan onder een 'dialysekater' bij een patiënt?",
+    english_breakdown: "What is meant in healthcare transport by a 'dialysis hangover' experienced by a patient?",
+    correct_option: 1,
+    explanation: "Het gevoel van extreme fysieke uitputting, duizeligheid, misselijkheid en hoofdpijn direct na de bloedzuivering van een nierdialyse.",
+    role_annotations: JSON.stringify([{"text": "Dialysekater", "role": "Target"}, {"text": "Extreme uitputting en misselijkheid na dialysebehandeling", "role": "Condition"}]),
+    domain: "gedrag",
+    options: [
+      { id: 189, q_id: 48, option_text: "De patiënt heeft alcohol gedronken voorafgaand aan de behandeling.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Nothing to do with alcohol consumption." },
+      { id: 190, q_id: 48, option_text: "Extreme lichamelijke vermoeidheid, duizeligheid en misselijkheid na de nierdialyse.", is_correct: 1, trap_annotation: "🇬🇧 Correct: Medical exhaustion resulting from rapid fluid and toxin extraction." },
+      { id: 191, q_id: 48, option_text: "Een allergische reactie op het taxivoertuig.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Fictional concept." },
+      { id: 192, q_id: 48, option_text: "Een boete die de patiënt moet betalen aan de zorgverzekeraar.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: It describes a physical symptom, not a fee." }
+    ]
+  },
+  {
+    id: 49,
+    dutch_stem: "Voor welke doelgroep is Cluster 4 binnen het speciaal onderwijs (leerlingenvervoer) bedoeld?",
+    english_breakdown: "For which student group is Cluster 4 within special education transport designed?",
+    correct_option: 2,
+    explanation: "Cluster 4 scholen zijn bestemd voor kinderen met ernstige gedragsstoornissen en psychiatrische aandoeningen (zoals ADHD, ODD en Autisme/ASS).",
+    role_annotations: JSON.stringify([{"text": "Cluster 4 leerlingenvervoer", "role": "Target"}, {"text": "Gedragsstoornissen en psychiatrische problematiek (ADHD, ASS)", "role": "Condition"}]),
+    domain: "gedrag",
+    options: [
+      { id: 193, q_id: 49, option_text: "Visueel beperkte kinderen (blind en slechtziend).", is_correct: 0, trap_annotation: "🇬🇧 Wrong: That is Cluster 1." },
+      { id: 194, q_id: 49, option_text: "Dove en slechthorende kinderen.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: That is Cluster 2." },
+      { id: 195, q_id: 49, option_text: "Kinderen met ernstige gedragsstoornissen en psychiatrische aandoeningen (zoals ADHD en autisme).", is_correct: 1, trap_annotation: "🇬🇧 Correct: Cluster 4 specializes in behavioral/psychiatric disorders." },
+      { id: 196, q_id: 49, option_text: "Kinderen met uitsluitend een motorische handicap.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: That is Cluster 3." }
+    ]
+  },
+  {
+    id: 50,
+    dutch_stem: "Waar staat de letter R voor in de RAAK-methode bij het de-escaleren van agressie?",
+    english_breakdown: "What does the letter R stand for in the RAAK aggression de-escalation protocol?",
+    correct_option: 0,
+    explanation: "RAAK staat voor: Rustig blijven, Accepteren/Aandacht schenken, Afwegen/Aanbod doen, Keuze voorleggen of Kappen.",
+    role_annotations: JSON.stringify([{"text": "RAAK-methode", "role": "Target"}, {"text": "R = Rustig blijven", "role": "Obligation"}]),
+    domain: "gedrag",
+    options: [
+      { id: 197, q_id: 50, option_text: "Rustig blijven (stem en ademhaling onder controle houden).", is_correct: 1, trap_annotation: "🇬🇧 Correct: Step 1: Rustig blijven." },
+      { id: 198, q_id: 50, option_text: "Rechtzetten wie de baas is in de taxi.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Provocative ego battles cause physical violence." },
+      { id: 199, q_id: 50, option_text: "Rijden met verhoogde snelheid naar het politiebureau.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Dangerous and violates traffic law." },
+      { id: 200, q_id: 50, option_text: "Ruzie ontwijken door direct gratis te rijden.", is_correct: 0, trap_annotation: "🇬🇧 Wrong: Yielding to instrumental extortion rewards bad behavior." }
+    ]
+  }
 ];
 
-// Helper to generate 20 distinct 40-question mock exams
+// Helper to generate distinct 40-question mock exams
 export function getPracticeExams(): PracticeExam[] {
   const exams: PracticeExam[] = [];
 
-  for (let i = 1; i <= 20; i++) {
-    // Generate 40 question IDs for each exam with balanced domain distribution
+  // Dedicated Exam 1: CDT Basisopleiding Deel 1 (Theorie, Wetgeving, BCT & Voertuig)
+  const exam1Questions: number[] = [];
+  for (let q = 0; q < 40; q++) {
+    // Weighted heavily on Eindtermen 1-5 (questions 1-25)
+    exam1Questions.push(((q * 3) % 25) + 1);
+  }
+  exams.push({
+    id: 1,
+    title: 'CBR Examen 1: CDT Deel 1 (Wet, BCT & Voertuig)',
+    description: '40 theorievragen gericht op Eindterm 1 t/m 5: Administratie, Atb-v, Voertuigeisen en PAMAN.',
+    questionIds: exam1Questions,
+  });
+
+  // Dedicated Exam 2: CDT Basisopleiding Deel 2 (Doelgroepen, Zorg & Calamiteiten)
+  const exam2Questions: number[] = [];
+  for (let q = 0; q < 40; q++) {
+    // Weighted heavily on Eindtermen 6-10 (questions 26-50)
+    exam2Questions.push(((q * 3) % 25) + 26);
+  }
+  exams.push({
+    id: 2,
+    title: 'CBR Examen 2: CDT Deel 2 (Zorg, Doelgroepen & Klanten)',
+    description: '40 theorievragen gericht op Eindterm 6 t/m 10: Rolstoel ISO 10542, Dialysevervoer, Clusters en RAAK.',
+    questionIds: exam2Questions,
+  });
+
+  // Exams 3 to 20: Comprehensive full-curriculum mock exams
+  for (let i = 3; i <= 20; i++) {
     const questionIds: number[] = [];
     const baseLength = EXPANDED_QUESTIONS.length;
 
@@ -1826,6 +2303,160 @@ export const CURRICULUM_DATA = {
         "back_text": "🇬🇧 English: Emission requirement for city taxis?\n\n🇳🇱 Zero-emissie (100% uitstootvrij / elektrisch of waterstof) binnen de vastgestelde uitstootvrije zones.",
         "audio_path": null,
         "vocab_refs": "[51]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 87,
+        "front_text": "RAAK-methode: Wat zijn de 4 stappen bij agressiebeheersing?",
+        "back_text": "🇬🇧 English: What are the 4 RAAK steps for handling aggression?\n\n🇳🇱 1. Rustig blijven (stem & ademhaling)\n2. Accepteren / Aandacht geven aan het gevoel\n3. Afwegen / Aanbod doen voor een oplossing\n4. Keuze stellen of Kappen (rit stoppen bij gevaar)",
+        "audio_path": null,
+        "vocab_refs": "[62]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 88,
+        "front_text": "Rolstoelvervoer ISO 10542: Hoe wordt een rolstoelpassagier vastgezet?",
+        "back_text": "🇬🇧 English: How is a wheelchair passenger secured?\n\n🇳🇱 1. Rolstoel: Vierpunts-vastzetsysteem (ISO 10542) met spanners op vloerrails.\n2. Passagier: Driepuntsgordel verankerd aan de CARROSSERIE van het voertuig (nooit aan de rolstoel zelf!).",
+        "audio_path": null,
+        "vocab_refs": "[13, 60]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 89,
+        "front_text": "Rolstoel stoeprand afrijden: Vooruit of achteruit?",
+        "back_text": "🇬🇧 English: Rolling a wheelchair down a curb: forward or backward?\n\n🇳🇱 ALTIJD ACHTERUIT (achterwaarts)! Bij vooruit afrijden blokkeren de kleine wieltjes en kiept de passagier voorover uit de stoel.",
+        "audio_path": null,
+        "vocab_refs": "[60]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 90,
+        "front_text": "Dialysekater: Wat is het en welke rijstijl past hierbij?",
+        "back_text": "🇬🇧 English: What is dialysis hangover and required driving style?\n\n🇳🇱 Extreme lichamelijke uitputting, duizeligheid en misselijkheid na bloedzuivering bij nierpatiënten.\nChauffeur rijdt extreem defensief en anticiperend, en neemt verkeersdrempels stapvoets.",
+        "audio_path": null,
+        "vocab_refs": "[59, 60]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 91,
+        "front_text": "Shuntarm bij nierpatiënt: Welke handelingen zijn verboden?",
+        "back_text": "🇬🇧 English: What is prohibited on a dialysis patient's shunt arm?\n\n🇳🇱 NOOIT een bloeddrukband aanbrengen, geen knellende kleding, en de arm mag niet zwaar belast worden met zware tassen.",
+        "audio_path": null,
+        "vocab_refs": "[60]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 92,
+        "front_text": "Speciaal Onderwijs Clusters: Welke leerlingen zitten in Cluster 4?",
+        "back_text": "🇬🇧 English: Which students belong to Special Education Cluster 4?\n\n🇳🇱 Kinderen met ernstige gedragsstoornissen en psychiatrische aandoeningen (zoals ADHD, ODD en Autisme/ASS).",
+        "audio_path": null,
+        "vocab_refs": "[61]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 93,
+        "front_text": "Gele sticker op medicijnen: Wat betekent dit voor de chauffeur?",
+        "back_text": "🇬🇧 English: What does a yellow medicine warning sticker mean?\n\n🇳🇱 De rijvaardigheid wordt nadelig beïnvloed (verminderd reactievermogen en slaperigheid); rijden als taxichauffeur is verboden.",
+        "audio_path": null,
+        "vocab_refs": "[1]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 94,
+        "front_text": "Europees Schadeformulier: Mag je schuld erkennen op het formulier?",
+        "back_text": "🇬🇧 English: May you admit guilt on the European Claim Form?\n\n🇳🇱 NOOIT! Leg uitsluitend de feiten, situatieschets en vinkjes vast. De verzekeraars bepalen wie juridisch aansprakelijk is.",
+        "audio_path": null,
+        "vocab_refs": "[12]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 95,
+        "front_text": "Pech op de snelweg: Waar wachten chauffeur en passagiers?",
+        "back_text": "🇬🇧 English: Highway breakdown: where should occupants wait?\n\n🇳🇱 Met veiligheidshesje aan, rechts uitstappen en VEILIG ACHTER DE VANGRAIL in de berm wachten. Nooit in de auto blijven zitten!",
+        "audio_path": null,
+        "vocab_refs": "[17, 19]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 96,
+        "front_text": "LSD-gesprekstechniek: Waar staat LSD voor in het taxivak?",
+        "back_text": "🇬🇧 English: What does the LSD communication method stand for?\n\n🇳🇱 L = Luisteren (zonder onderbreken)\nS = Samenvatten (in eigen woorden controleren)\nD = Doorvragen (om wensen of adres te verduidelijken)",
+        "audio_path": null,
+        "vocab_refs": "[62]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 97,
+        "front_text": "Geschillencommissie Taxivervoer: Wanneer mag een klant hier terecht?",
+        "back_text": "🇬🇧 English: When can a customer escalate to the Disputes Committee?\n\n🇳🇱 Pas NADAT de klacht eerst schriftelijk bij het taxibedrijf zelf is ingediend en niet binnen redelijke termijn (4-6 weken) is opgelost. De uitspraak is bindend.",
+        "audio_path": null,
+        "vocab_refs": "[63]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 98,
+        "front_text": "Rijksweg A1: Welke steden en grens verbindt deze snelweg?",
+        "back_text": "🇬🇧 English: Which route does highway A1 follow?\n\n🇳🇱 Amsterdam – Hilversum – Amersfoort – Apeldoorn – Deventer – Hengelo – De Lutte (Duitse grens).",
+        "audio_path": null,
+        "vocab_refs": "[12]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 99,
+        "front_text": "Rijksweg A2: Welke route volgt de A2 van noord naar zuid?",
+        "back_text": "🇬🇧 English: Which route does motorway A2 follow?\n\n🇳🇱 Amsterdam – Utrecht – 's-Hertogenbosch – Eindhoven – Weert – Maastricht (Belgische grens).",
+        "audio_path": null,
+        "vocab_refs": "[12]",
+        "last_review": null,
+        "ease": 2.5,
+        "interval": 1,
+        "next_due": null
+    },
+    {
+        "id": 100,
+        "front_text": "Samenloopregeling: Wat moet een chauffeur met 2 banen doen?",
+        "back_text": "🇬🇧 English: What is mandatory under the dual-employment rule?\n\n🇳🇱 Meldplicht: Al zijn werkgevers informeren over alle gewerkte uren. Voor de totale rust geldt altijd de strengste regelgeving.",
+        "audio_path": null,
+        "vocab_refs": "[65]",
         "last_review": null,
         "ease": 2.5,
         "interval": 1,

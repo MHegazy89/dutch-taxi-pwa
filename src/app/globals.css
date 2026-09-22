@@ -33,6 +33,14 @@
     --ring: 25 100% 50%;
 
     --radius: 0.75rem;
+
+    /* CBR Official Exam Theme Tokens */
+    --cbr-petrol: #0b6687;
+    --cbr-petrol-dark: #084c65;
+    --cbr-btn: #2b7ba8;
+    --cbr-btn-hover: #3888b8;
+    --cbr-gray: #f0f1f3;
+    --cbr-border: #e0e2e6;
   }
 
   .dark {
@@ -75,6 +83,7 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    padding-top: env(safe-area-inset-top, 0px);
   }
 }
 
@@ -95,11 +104,46 @@
 
 /* Touch safe area adjustments for mobile notch & home indicator */
 .safe-bottom {
-  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
 }
 
 .safe-top {
-  padding-top: calc(0.5rem + env(safe-area-inset-top));
+  padding-top: max(env(safe-area-inset-top, 0px), 12px);
+}
+
+/* CBR Official Speech Bubble Pointer */
+.cbr-speech-bubble {
+  position: relative;
+  background: #f0f1f3;
+  border: 1px solid #e0e2e6;
+  border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+  .cbr-speech-bubble::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 10px solid #f0f1f3;
+    z-index: 2;
+  }
+  .cbr-speech-bubble::after {
+    content: '';
+    position: absolute;
+    top: 23px;
+    left: -11px;
+    width: 0;
+    height: 0;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-right: 11px solid #e0e2e6;
+    z-index: 1;
+  }
 }
 
 /* 3D card flip utilities */

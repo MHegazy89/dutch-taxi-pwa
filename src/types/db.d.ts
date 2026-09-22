@@ -90,3 +90,35 @@ export interface VideoChunk {
   vocab_ids: string | null;
   created_at: string;
 }
+
+export interface CurriculumSubsection {
+  id: string;
+  heading: string;
+  headingEn: string;
+  headingAr?: string;
+  content: string;
+  contentEn: string;
+  contentAr?: string;
+  keyPoints: string[];
+  keyPointsEn: string[];
+  keyPointsAr?: string[];
+  examTip?: string;
+  examTipEn?: string;
+  examTipAr?: string;
+}
+
+export interface CurriculumSection {
+  id: string;
+  eindtermNumber: number;
+  title: string;
+  titleEn: string;
+  titleAr?: string;
+  subtitle: string;
+  subtitleEn: string;
+  subtitleAr?: string;
+  icon: string;
+  domain: DomainType | null;
+  pageRange: string;
+  subsections: CurriculumSubsection[];
+}
+

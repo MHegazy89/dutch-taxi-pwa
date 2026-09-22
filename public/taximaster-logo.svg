@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="35%" r="65%" fx="45%" fy="25%">
+      <stop offset="0%" stop-color="#151922" />
+      <stop offset="60%" stop-color="#0b0d13" />
+      <stop offset="100%" stop-color="#040507" />
+    </radialGradient>
+
+    <!-- Vibrant Gold/Orange Gradient -->
+    <linearGradient id="taxiGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB300" />
+      <stop offset="50%" stop-color="#FF6D00" />
+      <stop offset="100%" stop-color="#E65100" />
+    </linearGradient>
+
+    <!-- Accent Neon Cyan/Blue Gradient -->
+    <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <!-- Base Rounded Squircle Background -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+  <rect width="508" height="508" x="2" y="2" rx="126" fill="none" stroke="url(#taxiGold)" stroke-width="3" stroke-opacity="0.3" />
+
+  <!-- Ambient Glow behind emblem -->
+  <circle cx="256" cy="245" r="140" fill="#FF6D00" opacity="0.12" filter="url(#glow)" />
+
+  <!-- Shield / Crest Badge -->
+  <g filter="url(#subtleShadow)">
+    <path d="M 256 95 L 385 145 C 385 275 320 365 256 405 C 192 365 127 275 127 145 Z" 
+          fill="#10141d" 
+          stroke="url(#taxiGold)" 
+          stroke-width="8" 
+          stroke-linejoin="round" />
+
+    <!-- Inner Shield Accent Rim -->
+    <path d="M 256 115 L 365 158 C 365 265 310 345 256 380 C 202 345 147 265 147 158 Z" 
+          fill="none" 
+          stroke="url(#taxiGold)" 
+          stroke-width="2" 
+          stroke-opacity="0.35" />
+  </g>
+
+  <!-- Taxi Roof Sign Silhouette (Stylized) -->
+  <path d="M 200 135 L 312 135 L 324 158 L 188 158 Z" fill="url(#taxiGold)" rx="3" />
+  <rect x="236" y="142" width="40" height="9" rx="4" fill="#0b0d13" />
+
+  <!-- Bold Monogram "TX" (Taxi eXam) with Dutch geometric styling -->
+  <g fill="url(#taxiGold)">
+    <!-- T bar -->
+    <path d="M 195 185 L 285 185 L 285 215 L 255 215 L 255 315 L 225 315 L 225 215 L 195 215 Z" />
+    <!-- X intersecting dynamically -->
+    <path d="M 270 215 L 302 215 L 325 255 L 348 215 L 378 215 L 342 265 L 380 315 L 348 315 L 325 275 L 302 315 L 272 315 L 310 265 Z" />
+  </g>
+
+  <!-- CBR TVT Ribbon Banner -->
+  <g filter="url(#subtleShadow)">
+    <rect x="156" y="340" width="200" height="42" rx="21" fill="url(#taxiGold)" />
+    <text x="256" y="367" 
+          text-anchor="middle" 
+          font-family="system-ui, -apple-system, sans-serif" 
+          font-weight="900" 
+          font-size="20" 
+          letter-spacing="3" 
+          fill="#07090e">TVT PRO</text>
+  </g>
+
+  <!-- Active Status Indicator Dot (Top Right of Shield) -->
+  <circle cx="365" cy="135" r="10" fill="#10B981" filter="url(#glow)" />
+  <circle cx="365" cy="135" r="7" fill="#34D399" />
+</svg>

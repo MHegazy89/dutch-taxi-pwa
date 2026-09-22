@@ -7,6 +7,8 @@ import { FlashcardCarousel } from '../components/FlashcardCarousel';
 import { Card } from '@/components/ui/card';
 import { Layers, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { gateContent, FREE_LIMITS } from '@/lib/accessControl';
+import { PaywallCard } from '@/components/PaywallCard';
 
 export default function FlashcardsPage() {
   const [cards, setCards] = useState<Flashcard[]>([]);
@@ -28,6 +30,8 @@ export default function FlashcardsPage() {
     loadCards();
   }, []);
 
+  const { visible, locked, isGated } = gateContent(cards, FREE_LIMITS.flashcards);
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -47,8 +51,13 @@ export default function FlashcardsPage() {
           <RefreshCw className="w-8 h-8 animate-spin mx-auto text-orange-500" />
           <p className="text-sm">Flitskaarten database laden...</p>
         </div>
-      ) : cards.length > 0 ? (
-        <FlashcardCarousel cards={cards} />
+      ) : visible.length > 0 ? (
+        <div className="space-y-6">
+          <FlashcardCarousel cards={visible} />
+          {isGated && (
+            <PaywallCard lockedCount={locked.length} contentType="flashcards" />
+          )}
+        </div>
       ) : (
         <Card className="p-8 text-center space-y-4 bg-slate-900 border-slate-800">
           <p className="text-slate-400 text-sm">Geen flitskaarten gevonden.</p>

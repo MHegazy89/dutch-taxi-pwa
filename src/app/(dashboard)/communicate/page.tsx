@@ -11,6 +11,8 @@ import { CommunicationCard } from '../components/CommunicationCard';
 import { ScenarioSimulator } from '../components/ScenarioSimulator';
 import { PhraseQuiz } from '../components/PhraseQuiz';
 import { MessageSquare, Users, Award, BookOpen } from 'lucide-react';
+import { gateContent, FREE_LIMITS } from '@/lib/accessControl';
+import { PaywallCard } from '@/components/PaywallCard';
 
 type TabMode = 'phrases' | 'scenarios' | 'quiz';
 
@@ -21,6 +23,10 @@ export default function CommunicatePage() {
   const filteredPhrases = selectedPhase === 'all'
     ? COMMUNICATION_PHRASES
     : COMMUNICATION_PHRASES.filter(p => p.phase === selectedPhase);
+
+  const phraseLimit = selectedPhase === 'all' ? FREE_LIMITS.phrasesPerPhase * 4 : FREE_LIMITS.phrasesPerPhase;
+  const { visible: visiblePhrases, locked: lockedPhrases, isGated: isPhrasesGated } =
+    gateContent(filteredPhrases, phraseLimit);
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
@@ -120,10 +126,14 @@ export default function CommunicatePage() {
 
           {/* Phrases Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredPhrases.map((phrase) => (
+            {visiblePhrases.map((phrase) => (
               <CommunicationCard key={phrase.id} phrase={phrase} />
             ))}
           </div>
+
+          {isPhrasesGated && (
+            <PaywallCard lockedCount={lockedPhrases.length} contentType="phrases" />
+          )}
         </div>
       )}
 

@@ -1,22 +1,22 @@
 {
-  "name": "CBR Taxi Theory Exam Prep",
-  "short_name": "CBR Taxi",
-  "description": "Mobile-first PWA for passing the CBR Taxi Theory Exam (TVT) with A0-friendly Dutch deconstruction & SRS",
-  "theme_color": "#020617",
-  "background_color": "#020617",
+  "name": "TaxiMaster TVT - CBR Taxi Theorie & Praktijk",
+  "short_name": "TaxiMaster",
+  "description": "Officieel voorbereidingsplatform voor het CBR Taxi Theorie-examen (TVT) en praktijkgesprekken. Met meertalige ondersteuning (Nederlands, Engels, Arabisch).",
+  "theme_color": "#07090e",
+  "background_color": "#07090e",
   "display": "standalone",
   "orientation": "portrait",
   "start_url": "/",
   "scope": "/",
   "icons": [
     {
-      "src": "/icons/icon-192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

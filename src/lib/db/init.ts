@@ -163,6 +163,33 @@ function seedTables(db: Database) {
           );
         });
       }
+
+      const qStmt = db.prepare('SELECT COUNT(*) as count FROM practice_q');
+      let qCount = 0;
+      if (qStmt.step()) {
+        qCount = (qStmt.getAsObject() as any).count || 0;
+      }
+      qStmt.free();
+
+      if (qCount < CURRICULUM_DATA.questions.length) {
+        db.run('DELETE FROM practice_option');
+        db.run('DELETE FROM practice_q');
+        CURRICULUM_DATA.questions.forEach((q) => {
+          db.run(
+            `INSERT INTO practice_q (id, dutch_stem, english_breakdown, correct_option, explanation, role_annotations, domain)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [q.id, q.dutch_stem, q.english_breakdown, q.correct_option, q.explanation, q.role_annotations, q.domain]
+          );
+
+          q.options.forEach((opt) => {
+            db.run(
+              `INSERT INTO practice_option (id, q_id, option_text, is_correct, trap_annotation)
+               VALUES (?, ?, ?, ?, ?)`,
+              [opt.id, opt.q_id, opt.option_text, opt.is_correct ? 1 : 0, opt.trap_annotation]
+            );
+          });
+        });
+      }
     } catch (e) {
       console.warn('Auto-sync table update error:', e);
     }

@@ -7,6 +7,8 @@ import { CompoundSlicer } from '../components/CompoundSlicer';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { BookOpen, Search, RefreshCw, Sparkles } from 'lucide-react';
+import { gateContent, FREE_LIMITS } from '@/lib/accessControl';
+import { PaywallCard } from '@/components/PaywallCard';
 
 export default function VocabularyPage() {
   const [vocabList, setVocabList] = useState<Vocab[]>([]);
@@ -38,6 +40,9 @@ export default function VocabularyPage() {
       (v.literal_english && v.literal_english.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (v.legal_meaning && v.legal_meaning.toLowerCase().includes(searchQuery.toLowerCase()))
   );
+
+  const { visible: visibleVocab, locked: lockedVocab, isGated: isVocabGated } =
+    gateContent(filteredVocab, FREE_LIMITS.compoundWords);
 
   return (
     <div className="space-y-6">
@@ -104,11 +109,11 @@ export default function VocabularyPage() {
           </div>
 
           {/* Term Selection List */}
-          <div className="lg:col-span-5 space-y-2 max-h-[600px] overflow-y-auto pr-1">
+          <div className="lg:col-span-5 space-y-3 max-h-[600px] overflow-y-auto pr-1">
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-              Gevonden termen ({filteredVocab.length})
+              Gevonden termen ({visibleVocab.length})
             </span>
-            {filteredVocab.map((v) => {
+            {visibleVocab.map((v) => {
               const isSelected = selectedTerm?.id === v.id;
               return (
                 <button
@@ -131,6 +136,12 @@ export default function VocabularyPage() {
                 </button>
               );
             })}
+
+            {isVocabGated && (
+              <div className="pt-2">
+                <PaywallCard lockedCount={lockedVocab.length} contentType="words" />
+              </div>
+            )}
           </div>
         </div>
       )}
